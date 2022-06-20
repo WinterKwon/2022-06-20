@@ -9,10 +9,10 @@ function Header(){
   </header>)
 }
 
-function Nav(){
+function Nav({data}){
   return (
     <nav>
-      <ol></ol>
+      <ol>{data.map(e=> <li key={e.id}><a href = {'/read/${e.id}'}>{e.title}</a></li>)}</ol>
     </nav>
   )
 
@@ -28,11 +28,13 @@ function App() {
   useEffect(()=>{
     refreshTopics()
   },[])
+
+  console.log(topics)
   return (
     <div className="App">
       <Header />
       Hello, World!
-      <Nav></Nav>
+      <Nav data={topics}></Nav>
     </div>
   );
 }
