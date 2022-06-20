@@ -100,7 +100,11 @@ function App() {
         <Route path='/read/:id'element={<Read></Read>}></Route>
         <Route path='/create' element = {<Create />}></Route>
        </Routes>
-       <Control></Control>
+       <Routes>
+       {['/','/read/:id','/create'].map(e=>{
+         return <Route key={e} path = {e} element = {<Control></Control>}></Route>
+       })}
+       </Routes>
     </div>
   );
 }
