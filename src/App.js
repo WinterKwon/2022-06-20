@@ -70,7 +70,11 @@ function Create(){
 }
 
 function Control(){
-  
+  return(
+    <ul>
+      <Link to="/create">Create</Link>
+    </ul>
+  )
 }
 function App() {
 
@@ -96,6 +100,7 @@ function App() {
         <Route path='/read/:id'element={<Read></Read>}></Route>
         <Route path='/create' element = {<Create />}></Route>
        </Routes>
+       <Control></Control>
     </div>
   );
 }
