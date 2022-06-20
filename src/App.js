@@ -1,10 +1,11 @@
 
 import React, {useState, useEffect} from 'react';
+import {BrowserRouter,Link} from 'react-router-dom';
 
 function Header(){
   return (<header>
       <h1>
-        <a href='/'>WEB</a>
+        <Link to='/'>WEB</Link>
       </h1>
   </header>)
 }
@@ -12,7 +13,7 @@ function Header(){
 function Nav({data}){
   return (
     <nav>
-      <ol>{data.map(e=> <li key={e.id}><a href = {'/read/${e.id}'}>{e.title}</a></li>)}</ol>
+      <ol>{data.map(e=> <li key={e.id}><Link to = {'/read/${e.id}'}>{e.title}</Link></li>)}</ol>
     </nav>
   )
 
