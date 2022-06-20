@@ -1,6 +1,6 @@
 
-import React, {useState, useEffect, useParams} from 'react';
-import {Routes, Route, Link, useParams} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Routes, Route, Link, useParams, useNavigate} from 'react-router-dom';
 
 function Header(){
   return (<header>
@@ -24,7 +24,7 @@ function Read(){
   const id = Number(param.id);
   const [topic, setTopic] = useState({title:null, body:null});
   const refreshTopic = async ()=>{
-    const response = await fetch('http://localhost:3333/topics');
+    const response = await fetch('http://localhost:3333/topics/' +id);
     const result = await response.json();
     setTopic(result)
   }
@@ -40,8 +40,38 @@ function Read(){
     </article>
   )
 }
+function Create(){
+  const navigate = useNavigate();
+  const submitHandler =async (e)=>{
+    e.preventDefault();  //클릭시 리로드 방지
+    const title = e.target.title.value;
+    const body = e.target.body.value;
+    const response = await fetch('http://localhost:3333/topics', {
+      method : 'POST',
+      headers : {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify({title, body})
+    })
 
+    const result = await response.json();
+    navigate('/read/'+result.id)
 
+  }
+  return(
+    <form onSubmit={submitHandler}>
+      <h2>Create</h2>
+      <p><input type="text name="title placeholder='title'></input></p>
+      <p><textarea name="body" placeholder='body'></textarea></p>
+      <p><input type="submit" value="create"></input></p>
+    </form>
+
+  )
+}
+
+function Control(){
+  
+}
 function App() {
 
   const [topics, setTopics] = useState([]);
@@ -64,6 +94,7 @@ function App() {
       <Routes>
         <Route path='/'element={<><h2>Welcome</h2>hello, React!</>}></Route>
         <Route path='/read/:id'element={<Read></Read>}></Route>
+        <Route path='/create' element = {<Create />}></Route>
        </Routes>
     </div>
   );
